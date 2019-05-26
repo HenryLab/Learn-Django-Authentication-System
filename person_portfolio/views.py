@@ -18,3 +18,6 @@ def sign_up(request):
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 
+
+def user_dashboard(request):
+    return render(request, 'dashboard.html')
