@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def sign_up(request):
@@ -41,4 +42,15 @@ def sign_in(request):
     else:
         msg.append('Invalid Login credentials, try again!')
     return render(request, 'login.html', {'errors': msg})
+
+
+@login_required()
+def registered_users(request):
+    users = User.objects.all()
+
+    context = {
+        'users': users
+    }
+    return render(request, 'users.html', context)
+
 
