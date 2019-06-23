@@ -18,6 +18,14 @@
                     <h1 class="h2">Registered Users</h1>
                 </div>
 
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <p class="bg-success" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
 
                 <table class="table">
                   <thead class="thead-dark">
@@ -35,9 +43,9 @@
                             <td>{{ user.last_login }}</td>
                             <td>
                                 {% if user.is_active %}
-                                    <a   href="" class="btn btn-sm btn-danger">Deactivate</a>
+                                    <a   href="{% url 'deactivate_user' user_id=user.id %}" class="btn btn-sm btn-danger">Deactivate</a>
                                     {% else %}
-                                    <a href="" class="btn btn-sm btn-success">Activate</a>
+                                    <a href="{% url 'activate_user' user_id=user.id %}" class="btn btn-sm btn-success">Activate</a>
                                 {% endif %}
                             </td>
                             <td>{{ user.date_joined }}</td>
